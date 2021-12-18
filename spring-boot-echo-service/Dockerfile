@@ -1,4 +1,4 @@
-FROM gradle:6.6.0-jdk11 AS build
+FROM gradle:7.2-jdk11 AS build
 
 COPY build.gradle /app/
 COPY src /app/src/

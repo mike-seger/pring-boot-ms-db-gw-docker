@@ -33,6 +33,18 @@ services:
       - "8000:8000"
     entrypoint: ["./wait.sh"]
 
+  gw:
+    image: gw-app
+    restart: on-failure
+    build:
+      context: ./spring-cloud-gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - eureka
+    ports:
+      - "10000:8080"
+    entrypoint: ["./wait.sh"]
+
   db-svc:
     image: db-app
     restart: on-failure

@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: spring-cloud-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: db-service
+          uri: lb://db
+          predicates:
+            - Path=/db/**
+          filters:
+            - StripPrefix=1
+        - id: ech-service
+          uri: lb://echo
+          predicates:
+            - Path=/echo/**
+          filters:
+            - StripPrefix=1
+        - id: hello-service
+          uri: lb://hello
+          predicates:
+            - Path=/hello/**
+          filters:
+            - StripPrefix=1
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka:8761/eureka
+#    fetch-registry: true
+#    register-with-eureka: true
+#  instance:
+#    hostname: localhost
+#    prefer-ip-address: true
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
