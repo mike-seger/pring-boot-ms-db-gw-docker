@@ -1,0 +1,11 @@
+# spring ms + docker
+
+## Run
+```
+docker-compose up
+```
+
+## Test
+```
+curl localhost:9000/echo/herllo
+```
