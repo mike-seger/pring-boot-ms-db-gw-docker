@@ -1,47 +1,49 @@
 buildscript {
 	ext {
 		springBootVersion = "2.6.1"
-        springCloudVersion = "2021.0.0"
+		springCloudVersion = "2021.0.0"
 	}
 	
-    repositories {
-    	mavenCentral()
-    }
-    
-    dependencies {
-    	classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+	repositories {
+		mavenCentral()
+	}
+	
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
 }
 
 plugins {
-    id "java-library"
-    id "org.springframework.boot" version "${springBootVersion}"
-    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+	id "java-library"
+	id "org.springframework.boot" version "${springBootVersion}"
+	id "io.spring.dependency-management" version "1.0.10.RELEASE"
 }
 
 sourceCompatibility = 11
 targetCompatibility = 11
 
+jar { enabled = false }
+
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
 	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.4"
-    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 
-    implementation 'mysql:mysql-connector-java:8.0.25'
-    implementation 'com.h2database:h2:2.0.202'
+	implementation 'mysql:mysql-connector-java:8.0.25'
+	implementation 'com.h2database:h2:2.0.202'
 
 	//required for JDK 9 or above
 	implementation "javax.xml.bind:jaxb-api:2.4.0-b180830.0359"
 }
 
 dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
