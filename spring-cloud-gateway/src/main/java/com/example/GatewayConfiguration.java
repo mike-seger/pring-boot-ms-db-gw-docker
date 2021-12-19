@@ -1,10 +1,10 @@
 package com.example;
 
-import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.context.annotation.Bean;
+//import org.springframework.cloud.gateway.filter.GlobalFilter;
+//import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import reactor.core.publisher.Mono;
+//import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
+//import reactor.core.publisher.Mono;
 
 @Configuration
 public class GatewayConfiguration {

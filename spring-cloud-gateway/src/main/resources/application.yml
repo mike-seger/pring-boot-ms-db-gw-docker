@@ -1,31 +1,37 @@
+app.gateway:
+  base-path: /app/ms
+  routes-url: http://localhost:${server.port}
+
+spring.autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.ManagementSecurityAutoConfiguration
+
 spring:
   application:
     name: spring-cloud-gateway
-
   cloud:
     gateway:
       routes:
         - id: db-service
-          uri: lb://db
+          uri: lb://db-service
           predicates:
-            - Path=/db/**
+            - Path=${app.gateway.base-path}/db/**
           filters:
-            - StripPrefix=1
-        - id: ech-service
-          uri: lb://echo
+            - RewritePath=${app.gateway.base-path}/db, /
+        - id: echo-service
+          uri: lb://echo-service
           predicates:
-            - Path=/echo/**
+            - Path=${app.gateway.base-path}/echo/**
           filters:
-            - StripPrefix=1
-        - id: hello-service
-          uri: lb://hello
-          predicates:
-            - Path=/hello/**
-          filters:
-            - StripPrefix=1
-
-server:
-  port: 8080
+            - RewritePath=${app.gateway.base-path}/echo, /
+#            - StripPrefix=3
+#        - id: eureka-admin
+#          uri: lb://eureka/
+#          predicates:
+#            - Path=${app.gateway.base-path}/eureka/**
+#          filters:
+#            - StripPrefix=1
 
 eureka:
   client:
@@ -37,7 +43,20 @@ eureka:
 #    hostname: localhost
 #    prefer-ip-address: true
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
+logging.level:
+    org.springframework.cloud.gateway: debug
+    reactor.netty.http.client: debug
+
+management:
+  endpoints.web:
+    exposure.include: '*'
+    based-path: ${app.gateway.base-path}/actuator
+  endpoint.health:show-details: always
+  info.git.mode: full
+  
+spring.cloud.gateway.httpserver.wiretap: true
+spring.cloud.gateway.httpclient.wiretap: true
+
+#logging.logstash:
+#  enabled: true
+#  url: logstash:9600

@@ -5,7 +5,7 @@
 .classpath
 *.iml
 .idea
-/build
+build/
 /config
 /config1/
 

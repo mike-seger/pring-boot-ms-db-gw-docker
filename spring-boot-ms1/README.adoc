@@ -1,0 +1,14 @@
+# spring-boot-ms1
+
+An API with openapi 3 documentation, implemented as a spring boot application.
+
+- Eureka: http://localhost:8761/
+- Swagger-UI: http://localhost:8000/swagger-ui.html
+- Spring-Cloud Gateway: http://localhost:10000/
+
+```
+curl localhost:8000/swagger-ui.html
+```
+
+## Links
+- https://blog.viadee.de/rest-api-roundtrip

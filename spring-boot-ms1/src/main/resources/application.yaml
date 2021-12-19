@@ -1,0 +1,4 @@
+springdoc.writer-with-default-pretty-printer: true
+spring.application.name: spring-boot-ms1
+server.port: 8080
+eureka.client.serviceUrl.defaultZone: http://eureka:8761/eureka

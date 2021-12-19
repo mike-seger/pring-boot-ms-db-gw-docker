@@ -9,7 +9,7 @@ RUN gradle build --no-daemon
 
 FROM adoptopenjdk/openjdk11:latest
 
-COPY --from=build /app/build/libs/*.jar db-app.jar
+COPY --from=build /app/build/libs/*.jar spring-boot-admin.jar
 
 RUN apt-get update && apt-get install -y netcat
 

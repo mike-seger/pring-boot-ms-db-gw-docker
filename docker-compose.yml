@@ -8,6 +8,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8761:8761"
+
+#  eureka:
+#    image: jhipster/jhipster-registry
+#    ports:
+#      - "8761:8761"
+#    environment:
+#      SPRING_SECURITY_USER_PASSWORD: admin
       
   echo:
     image: echo-app
@@ -17,22 +24,47 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - eureka
-    ports:
-      - "9000:9000"
     entrypoint: ["./wait.sh"]
 
-  hello:
-    image: hello-app
+  ms1:
+    image: spring-boot-ms1
     restart: on-failure
     build:
-      context: ./spring-boot-hello-service
+      context: ./spring-boot-ms1
       dockerfile: Dockerfile
     depends_on:
       - eureka
-    ports:
-      - "8000:8000"
     entrypoint: ["./wait.sh"]
 
+  admin:
+    build: ./spring-boot-admin
+    ports:
+      - "8092:8092"
+    environment:
+      - REGISTRY_HOST=eureka
+      - REGISTRY_PORT=8761
+    tty:
+      true
+    restart:
+      unless-stopped
+#    environment:
+#      - EUREKA_SERVICE_URL=http://eureka:8761
+#      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+#      - LOGGING_FILE=/tmp/admin.log
+
+  config:
+    image: springcloud/configserver
+    container_name: config
+    depends_on:
+      - eureka
+    ports:
+      - "8888:8888"
+#    networks:
+#      - "discovery"
+    environment:
+      - EUREKA_SERVICE_URL=http://eureka:8761
+      - EUREKA_INSTANCE_PREFER_IP_ADDRESS=true
+      
   gw:
     image: gw-app
     restart: on-failure
@@ -54,8 +86,6 @@ services:
     depends_on:
       - eureka
       - db
-    ports:
-      - "7000:7000"
     entrypoint: ["./wait.sh"]
 
   db:
@@ -66,3 +96,30 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./db:/docker-entrypoint-initdb.d/:ro
+
+  elasticsearch:
+    image: elasticsearch:7.16.1
+    ports: 
+    - "9200:9200"
+    - "9300:9300"
+  kibana:
+    image: kibana:7.16.1
+    ports:
+    - "5601:5601"
+    links:
+    - elasticsearch
+    depends_on:
+    - elasticsearch
+  logstash:
+    image: logstash:7.16.1
+    links:
+    - elasticsearch
+    ports:
+    - "9600:9600"
+    - "8089:8089"
+    volumes:
+    - ./:/config-dir
+    command: logstash -f /config-dir/logstash.conf
+    depends_on:
+    - elasticsearch
+  

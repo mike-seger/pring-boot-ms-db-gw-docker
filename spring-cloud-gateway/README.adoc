@@ -1,0 +1,16 @@
+- https://javatechonline.com/how-to-monitor-spring-boot-microservices-using-elk-stack/
+- https://www.baeldung.com/graylog-with-spring-boot
+- https://stackoverflow.com/questions/46154994/how-to-log-spring-5-webclient-call
+
+## Log levels
+
+https://cloud.spring.io/spring-cloud-gateway/2.1.x/multi/multi_troubleshooting.html
+
+Below are some useful loggers that contain valuable trouble shooting infomration at the DEBUG and TRACE levels.
+
+- org.springframework.cloud.gateway
+- org.springframework.http.server.reactive
+- org.springframework.web.reactive
+- org.springframework.boot.autoconfigure.web
+- reactor.netty
+- redisratelimiter

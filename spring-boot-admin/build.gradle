@@ -1,0 +1,40 @@
+buildscript {
+	ext {
+		springBootVersion = "2.5.7"
+		springCloudVersion = "2021.0.0"
+	}
+	
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+plugins {
+	id "java-library"
+	id "org.springframework.boot" version "${springBootVersion}"
+	id "io.spring.dependency-management" version "1.0.10.RELEASE"
+}
+
+repositories {
+	mavenLocal()
+	maven {
+		url = uri('https://repo.maven.apache.org/maven2/')
+	}
+}
+
+dependencies {
+	implementation 'de.codecentric:spring-boot-admin-server:2.5.5'
+	implementation 'de.codecentric:spring-boot-admin-server-ui:2.5.5'
+	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'spring-boot-admin'
+
+jar { enabled = false }
+java.sourceCompatibility = JavaVersion.VERSION_11
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}

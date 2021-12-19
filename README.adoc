@@ -7,7 +7,7 @@ docker-compose up
 
 ## Test
 ```
-curl localhost:9000/echo/herllo
+curl localhost:9000/echo/hello
 ```
 
 ## Links

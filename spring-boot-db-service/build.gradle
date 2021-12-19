@@ -1,6 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.3.3.RELEASE'
+		springBootVersion = "2.6.1"
+        springCloudVersion = "2021.0.0"
 	}
 	
     repositories {
@@ -13,8 +14,8 @@ buildscript {
 }
 
 plugins {
-    id 'java-library'
-    id 'org.springframework.boot' version "${springBootVersion}"
+    id "java-library"
+    id "org.springframework.boot" version "${springBootVersion}"
     id "io.spring.dependency-management" version "1.0.10.RELEASE"
 }
 
@@ -26,18 +27,21 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.0.4"
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
 
-	implementation 'mysql:mysql-connector-java:8.0.21'
-    
+    implementation 'mysql:mysql-connector-java:8.0.25'
+    implementation 'com.h2database:h2:2.0.202'
+
 	//required for JDK 9 or above
-	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+	implementation "javax.xml.bind:jaxb-api:2.4.0-b180830.0359"
 }
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR7'
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
 }
