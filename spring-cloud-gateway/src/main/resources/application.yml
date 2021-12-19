@@ -14,17 +14,24 @@ spring:
     gateway:
       routes:
         - id: db-service
-          uri: lb://db-service
+          uri: lb://db
           predicates:
             - Path=${app.gateway.base-path}/db/**
           filters:
             - RewritePath=${app.gateway.base-path}/db, /
         - id: echo-service
-          uri: lb://echo-service
+          uri: lb://echo
           predicates:
             - Path=${app.gateway.base-path}/echo/**
           filters:
             - RewritePath=${app.gateway.base-path}/echo, /
+        - id: ms1
+          uri: lb://ms1
+          predicates:
+            - Path=${app.gateway.base-path}/ms1/**
+          filters:
+            - RewritePath=${app.gateway.base-path}/ms1, /
+
 #            - StripPrefix=3
 #        - id: eureka-admin
 #          uri: lb://eureka/
@@ -35,6 +42,7 @@ spring:
 
 eureka:
   client:
+    register-with-eureka: false
     service-url:
       defaultZone: http://eureka:8761/eureka
 #    fetch-registry: true
@@ -43,7 +51,13 @@ eureka:
 #    hostname: localhost
 #    prefer-ip-address: true
 
-logging.level:
+logging:
+  pattern:
+    console: '%d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n'
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg"
+  file.name: spring.log
+  file.path: .logs
+  level:
     org.springframework.cloud.gateway: debug
     reactor.netty.http.client: debug
 
@@ -56,6 +70,10 @@ management:
   
 spring.cloud.gateway.httpserver.wiretap: true
 spring.cloud.gateway.httpclient.wiretap: true
+
+spring.main.web-application-type: REACTIVE
+
+spring.output.ansi.enabled: always
 
 #logging.logstash:
 #  enabled: true

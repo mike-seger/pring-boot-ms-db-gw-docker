@@ -1,4 +1,4 @@
 spring.cloud.discovery.enabled: false
 
-logging.logstash:
-  enabled: false
+#logging.logstash:
+#  enabled: false

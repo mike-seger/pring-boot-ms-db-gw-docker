@@ -1,6 +1,7 @@
 - https://javatechonline.com/how-to-monitor-spring-boot-microservices-using-elk-stack/
 - https://www.baeldung.com/graylog-with-spring-boot
 - https://stackoverflow.com/questions/46154994/how-to-log-spring-5-webclient-call
+- https://github.com/deviantony/docker-elk
 
 ## Log levels
 

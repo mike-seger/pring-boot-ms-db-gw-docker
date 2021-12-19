@@ -40,3 +40,6 @@ webpack.config.js
 webpack.generated.js
 
 /config
+
+bin
+*/bin

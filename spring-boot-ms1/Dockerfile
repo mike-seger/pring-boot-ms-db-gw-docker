@@ -11,7 +11,7 @@ FROM adoptopenjdk/openjdk11:latest
 
 COPY --from=build /app/build/libs/*.jar spring-boot-ms1.jar
 
-RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y netcat tcpdump inetutils-ping jq net-tools
 
-COPY wait.sh /wait.sh
-RUN chmod +x /wait.sh
+COPY src/dockertools /dockertools
+RUN chmod +x /dockertools/*
