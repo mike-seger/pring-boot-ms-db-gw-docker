@@ -43,3 +43,4 @@ webpack.generated.js
 
 bin
 */bin
+*/gradle*

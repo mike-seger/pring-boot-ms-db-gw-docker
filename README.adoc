@@ -3,11 +3,15 @@
 ## Run
 ```
 docker-compose up
+# or
+docker-compose up --build
 ```
 
-## Test
+## Gateway Entry
+- http://localhost:20000/
+
 ```
-curl localhost:9000/echo/hello
+curl localhost:20000/
 ```
 
 ## Links
