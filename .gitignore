@@ -44,3 +44,5 @@ webpack.generated.js
 bin
 */bin
 */gradle*
+
+.vscode
